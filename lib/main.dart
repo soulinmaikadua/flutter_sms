@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/detail.dart';
+import 'package:flutter_sms/detail222.dart';
 import 'package:telephony/telephony.dart';
 
 void main() {
@@ -98,16 +99,21 @@ class _MyHomePageState extends State<MyHomePage> {
               ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailScreen(id: 1)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                // DetailScreen(id: messages[index].id!),
+                                const MyMessage()),
+                      );
                     },
                     title: Text(messages[index].address!),
+                    subtitle: Text(messages[index].body.toString()),
                   );
                 },
               ),

@@ -20,7 +20,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void getM() async {
-    List<SmsConversation> conversations = await telephony.getConversations();
+    List<SmsConversation> conversations = await telephony.getConversations(
+        filter: ConversationFilter.where(ConversationColumn.THREAD_ID)
+            .equals(widget.id.toString()));
     print(conversations);
     setState(() {
       messages = conversations;
@@ -30,10 +32,12 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Message Detail"),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Text("Message"),
             ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
